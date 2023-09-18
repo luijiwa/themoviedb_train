@@ -10,9 +10,9 @@ class MovieDetailsMainInfoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: const [
+      children: [
         _TopPostersWidget(),
         Padding(
           padding: EdgeInsets.all(15.0),
@@ -187,8 +187,8 @@ class _ScoreWidget extends StatelessWidget {
               MainNavigationRouteNames.movieTrailerWidget,
               arguments: trailerKey,
             ),
-            child: Row(
-              children: const [
+            child: const Row(
+              children: [
                 Icon(Icons.play_arrow),
                 Text('Play Trailer'),
               ],

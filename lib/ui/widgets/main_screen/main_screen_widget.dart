@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:themoviedb_example/domain/data_providers/session_data_provider.dart';
 import 'package:themoviedb_example/domain/factories/screen_factory.dart';
+import 'package:themoviedb_example/domain/services/auth_service.dart';
 
 class MainScreenWidget extends StatefulWidget {
   const MainScreenWidget({Key? key}) : super(key: key);
@@ -27,7 +27,7 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
         title: const Text('TMDB'),
         actions: [
           IconButton(
-            onPressed: () => SessionDataProvider().setSessionId(null),
+            onPressed: () => AuthService().logout(),
             icon: const Icon(Icons.search),
           ),
         ],
@@ -36,7 +36,7 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
         index: _selectedTab,
         children: [
           _screenFactory.makeNewsListWidget(),
-          _screenFactory.makeMovieListWidget(),
+          _screenFactory.makeMovieList(),
           _screenFactory.makeTVListWidget(),
         ],
       ),

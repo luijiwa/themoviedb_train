@@ -36,7 +36,7 @@ class _MovieTrailerWidgetState extends State<MovieTrailerWidget> {
         builder: (context, player) {
           return Scaffold(
             appBar: AppBar(
-              title: Text('Трейлер'),
+              title: const Text('Трейлер'),
             ),
             body: Center(
               child: player,

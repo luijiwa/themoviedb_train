@@ -14,13 +14,17 @@ class AuthService {
   }
 
   Future<void> login(String login, String password) async {
-    final sessionId = await _authApiClient.auth(
-      username: login,
-      password: password,
-    );
-    final accountId = await _accountApiClient.getAccountInfo(sessionId);
-    await _sessionDataProvider.setSessionId(sessionId);
-    await _sessionDataProvider.setAccountId(accountId);
+    try {
+      final sessionId = await _authApiClient.auth(
+        username: login,
+        password: password,
+      );
+      final accountId = await _accountApiClient.getAccountInfo(sessionId);
+      await _sessionDataProvider.setSessionId(sessionId);
+      await _sessionDataProvider.setAccountId(accountId);
+    } catch (e) {
+      // return 'Неизвестная ошибка, повторите попытку';
+    }
   }
 
   Future<void> logout() async {
