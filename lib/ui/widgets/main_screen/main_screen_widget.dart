@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:themoviedb_example/domain/data_providers/session_data_provider.dart';
-import 'package:themoviedb_example/domain/factories/screen_factory.dart';
+
+import 'package:themoviedb_example/ui/navigation/main_navigation.dart';
 
 class MainScreenWidget extends StatefulWidget {
-  const MainScreenWidget({Key? key}) : super(key: key);
+  final ScreenFactory screenFactory;
+  const MainScreenWidget({
+    Key? key,
+    required this.screenFactory,
+  }) : super(key: key);
 
   @override
   State<MainScreenWidget> createState() => _MainScreenWidgetState();
@@ -11,7 +15,6 @@ class MainScreenWidget extends StatefulWidget {
 
 class _MainScreenWidgetState extends State<MainScreenWidget> {
   int _selectedTab = 0;
-  final _screenFactory = ScreenFactory();
 
   void onSelectedTab(int index) {
     if (_selectedTab == index) return;
@@ -27,7 +30,7 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
         title: const Text('TMDB'),
         actions: [
           IconButton(
-            onPressed: () => SessionDataProvider().setSessionId(null),
+            onPressed: () {},
             icon: const Icon(Icons.search),
           ),
         ],
@@ -35,9 +38,9 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
       body: IndexedStack(
         index: _selectedTab,
         children: [
-          _screenFactory.makeNewsListWidget(),
-          _screenFactory.makeMovieListWidget(),
-          _screenFactory.makeTVListWidget(),
+          widget.screenFactory.makeNewsListWidget(),
+          widget.screenFactory.makeMovieListWidget(),
+          widget.screenFactory.makeTVListWidget(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(

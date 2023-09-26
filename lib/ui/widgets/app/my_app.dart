@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:themoviedb_example/ui/navigation/main_navigation.dart';
+import 'package:themoviedb_example/ui/navigation/main_navigation_route_names.dart';
 import 'package:themoviedb_example/ui/theme/app_colors.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+abstract class MyAppNavigation {
+  Map<String, Widget Function(BuildContext)> get routes;
+  Route<Object> onGenerateRoute(RouteSettings settings);
+}
+
 class MyApp extends StatelessWidget {
-  // final MyAppModel model;
-  static final mainNavigation = MainNavigation();
-  const MyApp({Key? key}) : super(key: key);
+  final MyAppNavigation navigation;
+  const MyApp({
+    Key? key,
+    required this.navigation,
+  }) : super(key: key);
 
   // This widget is the root of your application.
   @override
@@ -24,9 +31,9 @@ class MyApp extends StatelessWidget {
           unselectedItemColor: Colors.grey,
         ),
       ),
-      routes: mainNavigation.routes,
+      routes: navigation.routes,
       initialRoute: MainNavigationRouteNames.loaderWidget,
-      onGenerateRoute: mainNavigation.onGenerateRoute,
+      onGenerateRoute: navigation.onGenerateRoute,
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,

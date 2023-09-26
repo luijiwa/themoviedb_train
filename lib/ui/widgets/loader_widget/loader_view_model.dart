@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:themoviedb_example/domain/services/auth_service.dart';
-import 'package:themoviedb_example/ui/navigation/main_navigation.dart';
+
+import 'package:themoviedb_example/ui/navigation/main_navigation_route_names.dart';
+
+abstract class LoaderViewModelAuthStatusProvider {
+  Future<bool> isAuth();
+}
 
 class LoaderViewModel {
   final BuildContext context;
-  final _authService = AuthService();
+  final LoaderViewModelAuthStatusProvider authStatusProvider;
 
-  LoaderViewModel(this.context) {
+  LoaderViewModel({
+    required this.context,
+    required this.authStatusProvider,
+  }) {
     asyncInit();
   }
   Future<void> asyncInit() async {
@@ -14,7 +21,7 @@ class LoaderViewModel {
   }
 
   Future<void> checkAuth() async {
-    final isAuth = await _authService.isAuth();
+    final isAuth = await authStatusProvider.isAuth();
     final nextScreen = isAuth
         ? MainNavigationRouteNames.mainScreen
         : MainNavigationRouteNames.auth;
