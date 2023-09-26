@@ -19,21 +19,26 @@ class SessionDataProviderDefault implements SessionDataProvider {
 
   const SessionDataProviderDefault(this.secureStorage);
 
+  @override
   Future<String?> getSessionId() => secureStorage.read(key: _Keys.sessionId);
 
+  @override
   Future<void> setSessionId(String? value) {
     return secureStorage.write(key: _Keys.sessionId, value: value);
   }
 
+  @override
   Future<void> deleteSessionId() {
     return secureStorage.delete(key: _Keys.sessionId);
   }
 
+  @override
   Future<int?> getAccountId() async {
     final id = await secureStorage.read(key: _Keys.accountId);
     return id != null ? int.tryParse(id) : null;
   }
 
+  @override
   Future<void> setAccountId(int value) {
     return secureStorage.write(
       key: _Keys.accountId,
@@ -41,6 +46,7 @@ class SessionDataProviderDefault implements SessionDataProvider {
     );
   }
 
+  @override
   Future<void> deleteAccountId() {
     return secureStorage.delete(key: _Keys.accountId);
   }
